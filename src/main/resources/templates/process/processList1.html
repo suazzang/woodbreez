@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="hbc" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-2 mx-2"><span th:text="|${member.name}님 환영합니다.|"></span></li>
+                <li class="py-2 mx-1 "><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="btn btn-sm admin">로그아웃</button>
+                </form></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="/" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container-fluid justify-content-center navm1">
+            <ul class="nav justify-content-center d-none d-md-inline-flex">
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product1">재고확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/orders1">주문목록</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/process1">공정확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/view1">공정시각화</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container border mt-2 rounded-3" style="background-color: #fefcf6;">
+    <div class="my-3">
+        <h3 class="text-center">공정확인</h3>
+        <div class="row">
+            <div class="col text-center">
+                <h4>제1 공정</h4>
+                <caption>제품의디자인 및 기획수립 </caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each = "process : ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result1}"></td>
+                        <td th:text="${process.status1}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제2 공정</h4>
+                <caption>나무 및 원재료가공 </caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result2}"></td>
+                        <td th:text="${process.status2}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제3 공정</h4>
+                <caption>부품조립</caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result3}"></td>
+                        <td th:text="${process.status3}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제3 공정</h4>
+                <caption>제품표면처리 및 마감작업</caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result4}"></td>
+                        <td th:text="${process.status4}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제5 공정</h4>
+                <caption>품질검사</caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result5}"></td>
+                        <td th:text="${process.status5}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제6 공정</h4>
+                <caption>포장 및 출하 </caption>
+                <table class="table border border-1 w-100 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result6}"></td>
+                        <td th:text="${process.status6}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

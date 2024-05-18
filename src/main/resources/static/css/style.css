@@ -1,0 +1,80 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* 추가 스타일 */
+.navm1 {
+  position: relative;
+}
+
+.hbc{
+  background-color: #fdf7e4;
+}
+
+.field-error{
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.mh2{
+  color: #7a6c3c;
+}
+.navm{
+  background-color: #fdf7e4;
+}
+.navm1>ul{
+  background-color: #e6ddc8;
+}
+.navm1>ul>li>a {
+  font-size: large;
+}
+.menut{
+  font-size: 50px;
+}
+.enter{
+  background-color: #e6ddc8;
+}
+.pw{
+  position: relative;
+}
+.pw i{
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  cursor: pointer;
+}
+.admin{
+  background-color: #e6ddc8;
+}
+.adminMain1{
+  border:5px solid beige;
+}
+.adminMain2{
+  border:5px solid beige;
+}
+.cpf>button{
+  background-color: #e6ddc8;
+}
+.productTable>thead>tr>th{
+  background-color: #fefcf6;
+}
+.productTable>tbody>tr>td{
+  background-color: #fefcf6;
+}
+.detailTable>tbody>tr>td{
+  background-color: #fefcf6;
+}
+.detailTable>thead>tr>th{
+  background-color: #fefcf6;
+}
+.orderTable>thead>tr>th{
+  background-color: #fefcf6;
+}
+.orderTable>tbody>tr>td{
+  background-color: #fefcf6;
+}
+.memberTable>tbody>tr>td{
+  background-color: #fefcf6;
+}
+.memberTable>thead>tr>th{
+  background-color: #fefcf6;
+}

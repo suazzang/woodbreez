@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> <!--차트js-->
+
+<body>
+<div class="hbc" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-2 mx-2"><span th:text="|${member.name}님 환영합니다.|"></span></li>
+                <li class="py-2 mx-1 "><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="btn btn-sm admin">로그아웃</button>
+                </form></li>
+                <li class="py-2 mx-1 "><a class="btn btn-sm admin" href="/member/new">직원등록</a></li>
+                <li class="py-2 mx-1 "><a class="btn btn-sm admin" href="/members">직원목록</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="#" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container justify-content-center navm1">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar"
+                    aria-controls="menubar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse navm1" id="menubar">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product">재고확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/order/create">주문하기</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/processcontrol">공정제어</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/process">공정확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product/view">공정시각화</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!--그래프-->
+<section class="text-center py-5">
+    <div class="container">
+        <div class="row mt-3 rounded-3 adminMain1 py-4">
+            <h2>생산공정현황</h2>
+            <div class="col-sm-2">
+                <canvas id="chart1"></canvas>
+                <h4 class="text-black">제1공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart2"></canvas>
+                <h4 class="text-black">제2공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart3"></canvas>
+                <h4 class="text-black">제3공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart4"></canvas>
+                <h4 class="text-black">제4공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart5"></canvas>
+                <h4 class="text-black">제5공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart6"></canvas>
+                <h4 class="text-black">제6공정</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row py-4 mt-3 rounded-3 adminMain2">
+            <div class="col-6">
+                <img src="/image/공정내부.jpg" class="img-fluid rounded-4">
+                <p class="text-center">공정내부</p>
+            </div>
+            <div class="col-6">
+                <img src="/image/공정외부.png" class="img-fluid rounded-4">
+                <p class="text-center">공정외부</p>
+            </div>
+            <div class="col-6 mt-3">
+                <img src="/image/공정과정.png" class="img-fluid rounded-4">
+                <p class="text-center">생산과정</p>
+            </div>
+            <div class="col-6 mt-3">0
+                <img src="/image/공정포장.jpg" class="img-fluid rounded-4">
+                <p class="text-center">공정포장</p>
+            </div>
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script>
+    // 데이터 및 옵션 설정
+    var chartData1 = { datasets: [{
+            label: "' of Votes'",
+            data: [12, 19, 5, 2],
+            backgroundColor: [
+
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions1 = {chart1};
+    var chartData2 = { datasets: [{
+            label: ' of Votes',
+            data: [ 19, 3, 5, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions2 = { /* chart2 데이터 및 옵션 설정 */ };
+    var chartData3 = { datasets: [{
+            label: ' of Votes',
+            data: [12, 5, 2, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions3 = { /* chart3 데이터 및 옵션 설정 */ };
+    var chartData4 = { datasets: [{
+            label: ' of Votes',
+            data: [ 3, 5, 2, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions4 = { /* chart4 데이터 및 옵션 설정 */ };
+    var chartData5 = { datasets: [{
+            label: ' of Votes',
+            data: [ 3, 5, 2, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions5 = { /* chart5 데이터 및 옵션 설정 */ };
+    var chartData6 = { datasets: [{
+            label: ' of Votes',
+            data: [ 3, 5, 2, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions6 = { /* chart5 데이터 및 옵션 설정 */ };
+
+    // 차트 생성
+    var ctx1 = document.getElementById('chart1').getContext('2d');
+    var chart1 = new Chart(ctx1, {
+        type: 'doughnut',
+        data: chartData1,
+        options: chartOptions1
+    });
+
+    var ctx2 = document.getElementById('chart2').getContext('2d');
+    var chart2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: chartData2,
+        options: chartOptions2
+    });
+
+    var ctx3 = document.getElementById('chart3').getContext('2d');
+    var chart3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: chartData3,
+        options: chartOptions3
+    });
+
+    var ctx4 = document.getElementById('chart4').getContext('2d');
+    var chart4 = new Chart(ctx4, {
+        type: 'doughnut',
+        data: chartData4,
+        options: chartOptions4
+    });
+
+    var ctx5 = document.getElementById('chart5').getContext('2d');
+    var chart5 = new Chart(ctx5, {
+        type: 'doughnut',
+        data: chartData5,
+        options: chartOptions5
+    });
+    var ctx6 = document.getElementById('chart6').getContext('2d');
+    var chart6 = new Chart(ctx6, {
+        type: 'doughnut',
+        data: chartData6,
+        options: chartOptions6
+    });
+
+</script>
+<script src="./js/bootstrap.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</html>

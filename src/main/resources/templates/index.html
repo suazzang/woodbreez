@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <!--네비끝-->
+    <!--그래프-->
+    <section class="text-center py-5">
+        <div class="container">
+            <div class="row">
+                <h2>생산공정현황</h2>
+                <div class="col-sm-2">
+                    <canvas id="chart1"></canvas>
+                    <h4 class="text-black">원재료</h4>
+                </div>
+                <div class="col-sm-2">
+                    <canvas id="chart2"></canvas>
+                    <h4 class="text-black">가공완료</h4>
+                </div>
+                <div class="col-sm-2">
+                    <canvas id="chart3"></canvas>
+                    <h4 class="text-black">에러로그</h4>
+                </div>
+                <div class="col-sm-2">
+                    <canvas id="chart4"></canvas>
+                    <h4 class="text-black">작업시작/중단</h4>
+                </div>
+                <div class="col-sm-2">
+                    <canvas id="chart5"></canvas>
+                    <h4 class="text-black">현재생산량</h4>
+                </div>
+                <div class="col-sm-2">
+                    <canvas id="chart6"></canvas>
+                    <h4 class="text-black">에러</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--하단 바-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 로그인 상태 확인
+        var isLoggedIn = false; // 로그인되지 않은 상태라고 가정
+
+        if (!isLoggedIn) {
+            // 로그인되지 않은 경우, 사용자에게 메시지를 표시하고 로그인 페이지로 이동할지 물어봄
+            var shouldLogin = window.confirm("로그인이 필요합니다. 로그인하시겠습니까?");
+            if (shouldLogin) {
+                // 사용자가 확인을 선택한 경우, 로그인 페이지로 이동
+                window.location.href = "/login";
+            } else {
+                // 사용자가 취소를 선택한 경우, 이동하지 않음
+                window.location.href = "/";
+            }
+        }
+    });
+
+</script>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

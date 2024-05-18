@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="my-5">
+        <div class="row">
+            <div class="col text-center">
+                <h4>제1공정</h4>
+                <canvas id="myChart1"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process1.defective}"></span>
+                    <span th:text="'정상 : ' + ${process1.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process1.planQTY}"></span>
+                </p>
+            </div>
+            <div class="col text-center">
+                <h4>제2공정</h4>
+                <canvas id="myChart2"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process2.defective}"></span>
+                    <span th:text="'정상 : ' + ${process2.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process2.planQTY}"></span>
+                </p>
+            </div>
+            <div class="col text-center">
+                <h4>제3공정</h4>
+                <canvas id="myChart3"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process3.defective}"></span>
+                    <span th:text="'정상 : ' + ${process3.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process3.planQTY}"></span>
+                </p>
+            </div>
+            <div class="col text-center">
+                <h4>제4공정</h4>
+                <canvas id="myChart4"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process4.defective}"></span>
+                    <span th:text="'정상 : ' + ${process4.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process4.planQTY}"></span>
+                </p>
+            </div>
+            <div class="col text-center">
+                <h4>제5공정</h4>
+                <canvas id="myChart5"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process5.defective}"></span>
+                    <span th:text="'정상 : ' + ${process5.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process5.planQTY}"></span>
+                </p>
+            </div>
+            <div class="col text-center">
+                <h4>제6공정</h4>
+                <canvas id="myChart6"></canvas>
+                <p class="my-2">
+                    <span th:text="'불량 : ' + ${process6.defective}"></span>
+                    <span th:text="'정상 : ' + ${process6.defects}"></span>
+                    <span th:text="'발주량 : ' + ${process6.planQTY}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+
+    <script th:inline="javascript">
+        const ctx1 = document.getElementById('myChart1');
+        const ctx2 = document.getElementById('myChart2');
+        const ctx3 = document.getElementById('myChart3');
+        const ctx4= document.getElementById('myChart4');
+        const ctx5 = document.getElementById('myChart5');
+        const ctx6 = document.getElementById('myChart6');
+
+        var error1 = /*[[${process1.defective}]]*/0;
+        var ok1 = /*[[${process1.defects}]]*/0;
+        var error2 = /*[[${process2.defective}]]*/0;
+        var ok2 = /*[[${process2.defects}]]*/0;
+        var error3 = /*[[${process3.defective}]]*/0;
+        var ok3 = /*[[${process3.defects}]]*/0;
+        var error4 = /*[[${process4.defective}]]*/0;
+        var ok4 = /*[[${process4.defects}]]*/0;
+        var error5 = /*[[${process5.defective}]]*/0;
+        var ok5 = /*[[${process5.defects}]]*/0;
+        var error6 = /*[[${process6.defective}]]*/0;
+        var ok6 = /*[[${process6.defects}]]*/0;
+
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error1, ok1],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        // beginAtZero: true,
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error2, ok2],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error3, ok3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+        new Chart(ctx4, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error4, ok4],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+        new Chart(ctx5, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error5, ok5],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+        new Chart(ctx6, {
+            type: 'pie',
+            data: {
+                labels: ['불량', '정상'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [error6, ok6],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false  // y축 눈금 표시 여부를 false로 설정합니다.
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

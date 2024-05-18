@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <div class="my-5">
+        <div class="row">
+            <div class="col text-center">
+                <h4>제1 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 1 공정 : 제품의 디자인 및 기획 수립 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each = "process : ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result1}"></td>
+                        <td th:text="${process.status1}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제2 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 2 공정 : 나무 및 기타 원재료 가공 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result2}"></td>
+                        <td th:text="${process.status2}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제3 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 3 공정 : 부품 조립하여 제품 완성 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result3}"></td>
+                        <td th:text="${process.status3}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제3 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 4 공정 : 제품 표면 처리 및 마감 작업 수행 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result4}"></td>
+                        <td th:text="${process.status4}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제5 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 5 공정 : 완성된 제품 품질 검사 및 테스트 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result5}"></td>
+                        <td th:text="${process.status5}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h4>제6 공정</h4>
+                <table class="table border border-1 w-100 mx-auto">
+                    <caption> 제 6 공정 : 포장 및 출하 </caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>result</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each =" process: ${process}">
+                        <td th:text="${process.id}"></td>
+                        <td th:text="${process.result6}"></td>
+                        <td th:text="${process.status6}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

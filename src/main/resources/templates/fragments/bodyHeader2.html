@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div style="background-color: #fdf7e4" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li><a class="btn btn-sm py-2 mx-2" href="/member/new">회원가입</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="#" style="color: #7a6c3c">WoodBreez</a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container justify-content-center navm1">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar"
+                    aria-controls="menubar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse navm1" id="menubar">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product">재고확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/order/create">주문하기</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/processcontrol">공정제어</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/process">공정확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product/view">공정시각화</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

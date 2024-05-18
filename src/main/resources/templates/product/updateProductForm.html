@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div class="hbc" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-2 mx-2"><span th:text="|${member.name}님 환영합니다.|"></span></li>
+                <li class="py-2 mx-1"><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="btn btn-sm admin">로그아웃</button>
+                </form></li>
+                <li class="py-2 mx-1"><a class="btn btn-sm admin" href="/member/new">직원등록</a></li>
+                <li class="py-2 mx-1 "><a class="btn btn-sm admin" href="/members">직원목록</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="/" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container-fluid justify-content-center navm1">
+            <ul class="nav justify-content-center d-none d-md-inline-flex">
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product">재고확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/order/create">주문하기</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/orders">주문목록</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/processcontrol">공정제어</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/process">공정확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/view">공정시각화</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container border mt-2 rounded-3" style="background-color: #fefcf6;">
+    <h2 class="py-4 text-center">재고수정</h2>
+    <form role="form" th:object="${form}" method="post" class="py-2" onreset="window.history.back();">
+        <input type="hidden" th:field="*{id}">
+        <div class="my-2">
+            <label class="form-label" th:for="*{materialName}">원재료</label>
+            <select th:field="*{materialName}" class="form-control">
+                <option value="">원재료를 선택하세요</option>
+                <option th:each="materialName:${T(woodbreeze.wdb.domain.MaterialName).values()}" th:value="${materialName}" th:text="${materialName}"></option>
+            </select>
+        </div>
+        <div class="my-2">
+            <label class="form-label" th:for="*{materialQuantity}">수량</label>
+            <input class="form-control" placeholder="수량을 입력하세요." th:field="*{materialQuantity} ">
+        </div>
+        <div class="my-2">
+            <label class="form-label" th:for="*{dateReceived}">입고날짜</label>
+            <p th:text="'현재 설정 된 입고일은 '+  ${form.dateReceived} +  '입니다.'"></p>
+            <input type="date" class="form-control" placeholder="입고날짜를 입력하세요" th:field="*{dateReceived}" >
+        </div>
+        <div class="my-2">
+        <label class="form-label" th:for="*{expiry}">유통기한</label>
+        <input type="date" class="form-control" placeholder="유통기한을 입력하세요" th:field="*{expiry}">
+        </div>
+        <!-- 회사명 선택 -->
+        <div class="my-2">
+            <label class="form-label" th:for="*{manufacturer}">제조회사</label>
+            <select th:field="*{manufacturer}" class="form-control">
+                <option value="">제조회사를 선택하세요</option>
+                <option th:each="companyName:${T(woodbreeze.wdb.domain.CompanyName).values()}" th:value="${companyName}" th:text="${companyName}"></option>
+            </select>
+        </div>
+        <div class="text-end cpf">
+            <button type="submit" class="btn btn-sm">수정</button>
+            <button type="reset" class="btn btn-sm">취소</button>
+        </div>
+    </form>
+</div>
+</body>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</html>

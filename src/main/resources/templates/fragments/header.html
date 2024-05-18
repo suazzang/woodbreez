@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--    <meta http-equiv="refresh" content="1">-->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.pw i').on('click', function(){
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass("bi-eye-fill").addClass("bi-eye-slash-fill");
+                    $(this).prev('input').attr('type', 'text');
+                } else {
+                    $(this).removeClass("bi-eye-slash-fill").addClass("bi-eye-fill");
+                    $(this).prev('input').attr('type', 'password');
+                }
+            });
+        });
+        //pw i 를 클릭하면 active클래스를 토글함.active클래스가 있으면 아이콘을 바꾸고 타입은 text로 비밀번호를 보이게 만들어준다. 다시 아이콘을 클릭하면 active클래스는 토글이기 때문에 사라지고 아이콘도 원래대로 타입도 패스워드로 바뀐다.
+    </script>
+    <title>Woodbreez</title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:insert="~{fragments/header :: header}"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<body>
+<div class="hbc" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-2 mx-1 "><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="btn btn-sm admin">로그아웃</button>
+                </form></li>
+                <li class="py-2 mx-1 "><a class="btn btn-sm admin" href="/member/new">직원등록</a></li>
+                <li class="py-2 mx-1 "><a class="btn btn-sm admin" href="/members">직원목록</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="/" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container justify-content-center navm1">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar"
+                    aria-controls="menubar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse navm1" id="menubar">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product">재고확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/order/create">주문하기</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/processcontrol">공정제어</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/process">공정확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product/view">공정시각화</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container border mt-2 rounded-3" style="background-color: #fefcf6">
+    <h2 class="py-4 text-center">공정제어</h2>
+    <div class="accordion accordion-flush  border border-1 mt-4" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    전체 공정
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <form>
+                        <div class="container justify-content-center p-0 m-0">
+                            <div class="text-center justify-content-center mt-3">
+                                <button type="button" class="btn btn-sm" style="background-color: #e6ddc8" id="allstartButton" >전체 시작</button>
+                                <button type="button" class="btn btn-sm" style="background-color: #e6ddc8" id="allstopButton">전체 중지</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    그룹 공정
+                </button>
+            </h2>
+            <!-- Modal -->
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="container row justify-content-center p-0 m-0">
+                        <!-- 각 공정 별 버튼 및 모달 -->
+                        <button type="button" class="btn btn-outline-dark col-3 py-2 m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                            고슴도치
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">공정 선택</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" th:action="@{/processcontrol}" method="post" class="py-2" id="processForm1">
+                                            <p>공정을 선택하세요.</p>
+                                            <p>현재 공정이 진행 중인 경우 작업이 완료된 후 변경된 공정이 적용됩니다.</p>
+                                            <div class="mb-3 justify-content-center">
+                                                <!-- 각 프로세스에 대한 체크박스 -->
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process1" name="processId1" value="1" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process1">1공정 : 재료 처리 및 가공</label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process2" name="processId1" value="2" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process2"> 2공정 : 조립 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process3" name="processId1" value="3" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process3"> 3공정 :표면 처리 및 마감 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process4" name="processId1" value="4" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process4"> 4공정 : 도색 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process5" name="processId1" value="5" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process5"> 5공정 : 품질 검사 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process6" name="processId1" value="6" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process6"> 6공정 : 포장 및 출하 </label>
+                                                </div>
+                                                <!-- 여기서는 버튼 텍스트를 고슴도치로 하고 서버로 전송될 값은 H -->
+                                                <input type="hidden" name="group" value="Hedgehog">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="submitForm(1, 'Hedgehog')">확인</button>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 볼링세트 -->
+                        <button type="button" class="btn btn-outline-dark col-3 py-2 m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                            볼링세트
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel2">공정 선택</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" th:action="@{/processcontrol}" method="post" class="py-2" id="processForm2">
+                                            <p>공정을 선택하세요.</p>
+                                            <p>현재 공정이 진행 중인 경우 작업이 완료된 후 변경된 공정이 적용됩니다.</p>
+                                            <div class="mb-3 justify-content-center">
+                                                <!-- 각 프로세스에 대한 체크박스 -->
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process7" name="processId1" value="1" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process7">1공정 : 재료 처리 및 가공</label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process8" name="processId2" value="2" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process8"> 2공정 : 조립 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process9" name="processId2" value="3" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process9"> 3공정 :표면 처리 및 마감 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process10" name="processId2" value="4" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process10"> 4공정 : 도색 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process11" name="processId2" value="5" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process11"> 5공정 : 품질 검사 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process12" name="processId2" value="6" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process12"> 6공정 : 포장 및 출하 </label>
+                                                </div>
+                                                <!-- 여기서는 버튼 텍스트를 볼링세트로 하고 서버로 전송될 값은 B -->
+                                                <input type="hidden" name="group" value="Bowlingset">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="submitForm(2,'Bowlingset')">확인</button>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 젠가 -->
+                        <button type="button" class="btn btn-outline-dark col-3 py-2 m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                            젠가
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel3" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel3">공정 선택</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" th:action="@{/processcontrol}" method="post" class="py-2" id="processForm3">
+                                            <p>공정을 선택하세요.</p>
+                                            <p>현재 공정이 진행 중인 경우 작업이 완료된 후 변경된 공정이 적용됩니다.</p>
+                                            <div class="mb-3 justify-content-center">
+                                                <!-- 각 프로세스에 대한 체크박스 -->
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process13" name="processId3" value="1" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process13">1공정 : 재료 처리 및 가공</label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process14" name="processId3" value="2" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process14"> 2공정 : 조립 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process15" name="processId3" value="3" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process15"> 3공정 :표면 처리 및 마감 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process16" name="processId3" value="4" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process16"> 4공정 : 도색 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process17" name="processId3" value="5" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process17"> 5공정 : 품질 검사 </label>
+                                                </div>
+                                                <div class="form-check form-switch justify-content-center">
+                                                    <input type="checkbox" class="btn-check" id="process18" name="processId3" value="6" autocomplete="off">
+                                                    <label class="btn btn-outline-secondary" for="process18"> 6공정 : 포장 및 출하 </label>
+                                                </div>
+                                                <!-- 여기서는 버튼 텍스트를 젠가로 하고 서버로 전송될 값은 J -->
+                                                <input type="hidden" name="group" value="Jenga">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="submitForm(3,'Jenga')">확인</button>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    개별 공정
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <form>
+                        <div class="container justify-content-center p-0 m-0">
+                            <div class="row justify-content-center">
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button" data-process-id="1" data-action="stop">1공정</button>
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button" data-process-id="2" data-action="stop">2공정</button>
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button"data-process-id="3" data-action="stop">3공정</button>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button" data-process-id="4" data-action="stop">4공정</button>
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button" data-process-id="5" data-action="stop">5공정</button>
+                                <button type="button" class="col-3 btn btn-outline-secondary py-2 m-1 process-button" data-bs-toggle="button" data-process-id="6" data-action="stop">6공정</button>
+                            </div>
+                            <div class="text-center justify-content-center mt-3">
+                                <button type="button" class="btn btn-sm" style="background-color: #e6ddc8" id="startButton" >시작</button>
+                                <button type="button" class="btn btn-sm" style="background-color: #e6ddc8" id="stopButton">중지</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 폼을 서브밋하는 함수
+    function submitForm(processId, groupName) {
+        // 폼 요소 가져오기
+        var form = document.getElementById('processForm' + processId);
+
+        // 이미 존재하는 hidden input 요소 제거
+        var existingGroupInput = form.querySelector('input[name="group"]');
+        if (existingGroupInput) {
+            existingGroupInput.remove();
+        }
+
+        // 새로운 hidden input 요소 생성 및 추가
+        var newGroupInput = document.createElement('input');
+        newGroupInput.type = 'hidden';
+        newGroupInput.name = 'group';
+        newGroupInput.value = groupName; // "H", "B", "J" 값 설정
+        form.appendChild(newGroupInput);
+
+        // 선택된 체크박스 가져오기
+        var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+
+        // 각 체크박스에 대해 hidden input을 폼에 추가
+        checkboxes.forEach(function(checkbox) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            if (processId === 1) {
+                input.name = 'process' + checkbox.value;
+            } else if (processId === 2) {
+                input.name = 'process' + checkbox.value;
+            } else if (processId === 3) {
+                input.name = 'process' + checkbox.value;
+            }
+            input.value = checkbox.checked ? 'true' : 'false';
+            form.appendChild(input);
+        });
+        // 폼 서브밋
+        form.submit();
+    }
+</script>
+<script>
+    // 두 번째 submitForm 함수 (이름 변경)
+    function submitFormWithFetch(processId, groupName) {
+        var checkboxes = document.querySelectorAll('input[name="processId' + processId + '"]:checked');
+        var processIds = [];
+        checkboxes.forEach(function(checkbox) {
+            processIds.push(parseInt(checkbox.value));
+        });
+        var data = {
+            group: groupName,
+            processIds: processIds
+        };
+        fetch('/processcontrol', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('서버 오류: ' + response.status);
+                }
+                console.log('공정 선택이 서버로 전송되었습니다.');
+                var modalId = 'staticBackdrop' + processId;
+                var modal = new bootstrap.Modal(document.getElementById(modalId));
+                modal.hide();
+            })
+            .catch(error => {
+                console.error('오류 발생: ', error);
+            });
+    }
+</script>
+</body>
+</html>

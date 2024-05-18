@@ -1,0 +1,27 @@
+spring:
+  #  datasource:
+  #    url: jdbc:h2:tcp://localhost/~/testdb
+  #    username: sa
+  #    password:
+  #    driver-class-name: org.h2.Driver
+  datasource:
+    url: jdbc:mysql://ls-7b928fb780e4444b1b104d15dce9f02077a50965.c9ieu4022sls.ap-northeast-2.rds.amazonaws.com:3306/testdb?serverTimezone=UTC&characterEncoding=UTF-8
+    username: dbmasteruser
+    password: z=5boCEP8vK^bF9]VIX7+i<I|L9BHO4R
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: update  #create  #  #애플리케이션 생성시점에 기본 앤티티지우고 다시 생성한다.
+    #ddl-auto: create   #애플리케이션 재 시작시 기존 데이터에 누적한다
+    properties:
+      hibernate:
+        #        show_sql: true  #생성한 sql system out을 통하여 찍는다
+        format_sql: true
+  thymeleaf:
+    prefix: classpath:/templates/   #접두어
+    suffix: .html            #접미어
+
+logging.level:
+  org.hibernate.SQL: debug   #생성한 sql이 로그를 통하여 찍어준다.
+  org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
+
+

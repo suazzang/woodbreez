@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="hbc" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-2 mx-2"><span th:text="|${member.name}님 환영합니다.|"></span></li>
+                <li class="py-2 mx-1 "><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="btn btn-sm admin">로그아웃</button>
+                </form></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="/" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container-fluid justify-content-center navm1">
+            <ul class="nav justify-content-center d-none d-md-inline-flex">
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product1">재고확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/orders1">주문목록</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/process1">공정확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/view1">공정시각화</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container border mt-4 rounded-3 py-2" style="background-color: #fefcf6;">
+    <h2 class="py-4 text-center">재고 상세 조회</h2>
+    <table class="table detailTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>제품 명</th>
+            <th>원자재 수</th>
+            <th>입고일자</th>
+            <th>유통기한</th>
+            <th>제조회사</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.materialName}" ></td>
+            <td th:text="${product.materialQuantity}"></td>
+            <td th:text="${product.dateReceived}"></td> <!-- 입고일자 표시 -->
+            <td th:text="${product.expiry}"></td> <!-- 유통기한 표시 -->
+            <td th:text="${product.manufacturer}"></td> <!-- 생산회사 표시 -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>
